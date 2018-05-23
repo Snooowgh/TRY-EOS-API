@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>EOSAPI_TEST</title>
+    <script src="./eos.js"></script>
+    <script src="./jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <div id="main">
+        <span>
+            information
+        </span>
+    </div>
+    <script>
+        eos = Eos.Testnet();
+        eos.getBlock(1111).then(result => { console.dir(result);$("span").text(JSON.stringify(result)); })
+        // Parameters can be sequential or an object
+        eos.getBlock({ block_num_or_id: 1 }).then(result => console.log(result))
+        // Callbacks are similar
+        callback = (err, res) => { err ? console.error(err) : console.dir(res) }
+        eos.getBlock(1, callback)
+        eos.getBlock({ block_num_or_id: 1 }, callback)
+        // Provide an empty object or a callback if an API call has no arguments
+        eos.getInfo({}).then(result => { console.log(result) })
+    </script>
+</body>
+
+</html>
